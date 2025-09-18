@@ -510,9 +510,6 @@ const TeacherWishingTree = () => {
         </div>
       )}
 
-      {// Add this code right before the closing </div> and </div> tags at the end of your TeacherWishingTree component
-// Replace the comment {/* All modals go here... */} with this code:
-
       {/* Wish Form Modal */}
       {showWishForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
