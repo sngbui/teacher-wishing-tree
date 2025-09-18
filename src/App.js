@@ -510,7 +510,330 @@ const TeacherWishingTree = () => {
         </div>
       )}
 
-      {/* All modals go here - Wish Form, Selected Wish, Teacher Response, Report Modal */}
+      {// Add this code right before the closing </div> and </div> tags at the end of your TeacherWishingTree component
+// Replace the comment {/* All modals go here... */} with this code:
+
+      {/* Wish Form Modal */}
+      {showWishForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-bold text-green-600">Share Your Appreciation</h3>
+                <button
+                  onClick={() => {
+                    setShowWishForm(false);
+                    setContentWarning('');
+                    setFormData({ message: '', category: 'gratitude', author: '', isAnonymous: true });
+                  }}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                {/* Category Selection */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Choose a category:
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {Object.entries(categories).map(([key, category]) => {
+                      const Icon = category.icon;
+                      return (
+                        <button
+                          key={key}
+                          onClick={() => setFormData({ ...formData, category: key })}
+                          className={`p-3 rounded-lg border-2 transition-all ${
+                            formData.category === key
+                              ? 'border-green-500 bg-green-50'
+                              : 'border-gray-200 hover:border-green-300'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <div
+                              className="w-6 h-6 rounded-full flex items-center justify-center"
+                              style={{ backgroundColor: category.color }}
+                            >
+                              <Icon size={14} className="text-white" />
+                            </div>
+                            <span className="text-sm font-medium">{category.label}</span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Message Input */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Your message to teachers:
+                  </label>
+                  <textarea
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Share your gratitude, encouragement, or appreciation..."
+                    className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                    rows={4}
+                    maxLength={300}
+                  />
+                  <div className="text-xs text-gray-500 mt-1">
+                    {formData.message.length}/300 characters
+                  </div>
+                </div>
+
+                {/* Author Settings */}
+                <div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <input
+                      type="checkbox"
+                      id="anonymous"
+                      checked={formData.isAnonymous}
+                      onChange={(e) => setFormData({ ...formData, isAnonymous: e.target.checked })}
+                      className="rounded"
+                    />
+                    <label htmlFor="anonymous" className="text-sm text-gray-700">
+                      Share anonymously
+                    </label>
+                  </div>
+                  
+                  {!formData.isAnonymous && (
+                    <input
+                      type="text"
+                      value={formData.author}
+                      onChange={(e) => setFormData({ ...formData, author: e.target.value })}
+                      placeholder="Your name (optional)"
+                      className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      maxLength={50}
+                    />
+                  )}
+                </div>
+
+                {/* Content Warning */}
+                {contentWarning && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <div className="flex items-center gap-2 text-red-600">
+                      <AlertTriangle size={16} />
+                      <span className="text-sm font-medium">Content Warning</span>
+                    </div>
+                    <p className="text-red-600 text-sm mt-1">{contentWarning}</p>
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <button
+                  onClick={handleSubmitWish}
+                  disabled={!formData.message.trim() || submitting}
+                  className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+                >
+                  {submitting ? (
+                    <>
+                      <Loader size={20} className="animate-spin" />
+                      Adding to tree...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={20} />
+                      Add My Wish to the Tree
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Selected Wish Modal */}
+      {selectedWish && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center transform rotate-45"
+                    style={{ backgroundColor: categories[selectedWish.category].color }}
+                  >
+                    <div className="transform -rotate-45">
+                      {React.createElement(categories[selectedWish.category].icon, { size: 18 })}
+                    </div>
+                  </div>
+                  <span className="font-semibold text-gray-700">
+                    {categories[selectedWish.category].label}
+                  </span>
+                </div>
+                <button
+                  onClick={() => setSelectedWish(null)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                <blockquote className="text-lg text-gray-800 italic">
+                  "{selectedWish.message}"
+                </blockquote>
+                
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <div className="flex items-center gap-2">
+                    <User size={14} />
+                    <span>{selectedWish.author}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Calendar size={14} />
+                    <span>{new Date(selectedWish.timestamp).toLocaleDateString()}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 pt-4 border-t">
+                  <button
+                    onClick={() => handleHeartWish(selectedWish.id)}
+                    className="flex items-center gap-2 px-3 py-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                  >
+                    <Heart size={16} className={selectedWish.hearts > 0 ? 'fill-current' : ''} />
+                    <span>{selectedWish.hearts || 0}</span>
+                  </button>
+                  
+                  <button
+                    onClick={() => handleShareWish(selectedWish)}
+                    className="flex items-center gap-2 px-3 py-2 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
+                  >
+                    <Share2 size={16} />
+                    <span>Share</span>
+                  </button>
+                  
+                  <button
+                    onClick={() => handleReportWish(selectedWish)}
+                    className="flex items-center gap-2 px-3 py-2 text-gray-500 hover:bg-gray-50 rounded-lg transition-colors ml-auto"
+                  >
+                    <Flag size={16} />
+                    <span>Report</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Teacher Response Modal */}
+      {showTeacherResponse && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-bold text-blue-600">Teacher Response Center</h3>
+                <button
+                  onClick={() => setShowTeacherResponse(false)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              <div className="space-y-6">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-blue-800 mb-2">For Teachers</h4>
+                  <p className="text-blue-700 text-sm">
+                    Thank you for all that you do! Here you can see the wonderful appreciation 
+                    messages from your students and the community.
+                  </p>
+                </div>
+
+                {/* Recent wishes for teachers */}
+                <div>
+                  <h4 className="font-semibold text-gray-700 mb-3">Recent Appreciation Messages</h4>
+                  <div className="space-y-3 max-h-60 overflow-y-auto">
+                    {recentWishes.slice(0, 5).map((wish) => (
+                      <div key={wish.id} className="p-3 bg-gray-50 rounded-lg">
+                        <p className="text-gray-800 text-sm italic">"{wish.message}"</p>
+                        <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
+                          <span>— {wish.author}</span>
+                          <span className="flex items-center gap-1">
+                            <Heart size={12} className="text-red-400" />
+                            {wish.hearts || 0}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-800 mb-2">Spread the Joy</h4>
+                  <p className="text-green-700 text-sm mb-3">
+                    Share this appreciation tree with your fellow educators!
+                  </p>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(window.location.href);
+                      alert('Link copied! Share with other teachers.');
+                    }}
+                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    Copy Tree Link
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Report Modal */}
+      {showReportModal && reportingWish && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-red-600">Report Content</h3>
+                <button
+                  onClick={() => {
+                    setShowReportModal(false);
+                    setReportingWish(null);
+                  }}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                <p className="text-gray-600 text-sm">
+                  Help us maintain a positive environment. If you believe this content 
+                  is inappropriate, please report it for review.
+                </p>
+
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <p className="text-gray-700 text-sm italic">"{reportingWish.message}"</p>
+                </div>
+
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => {
+                      setShowReportModal(false);
+                      setReportingWish(null);
+                    }}
+                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={submitReport}
+                    className="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                  >
+                    Report
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}}
     </div>
   );
 };
