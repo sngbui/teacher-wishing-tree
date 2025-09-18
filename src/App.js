@@ -242,8 +242,11 @@ const TeacherWishingTree = () => {
         <h2 className="text-2xl md:text-3xl text-green-600 mb-2">Wishing Tree</h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Share your gratitude and encouragement for the amazing teachers who shape our future. 
-          Click on the leaves to read wishes from others!
         </p>
+         <p className="text-gray-600 max-w-2xl mx-auto">
+          Click on the leaves to read wishes from others!
+        </p> 
+        
         
         {/* Wish Counter */}
         <div className="mt-6 flex justify-center items-center gap-6 text-sm text-gray-600">
