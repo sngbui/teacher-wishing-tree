@@ -38,7 +38,7 @@ const [teacherReplyData, setTeacherReplyData] = useState({
     gratitude: { color: getSeasonalColors().gratitude, label: 'Thank You', icon: Heart },
     support: { color: getSeasonalColors().support, label: 'You\'re Amazing', icon: Star },
     inspiration: { color: getSeasonalColors().inspiration, label: 'Keep Going', icon: Award },
-    appreciation: { color: getSeasonalColors().appreciation, label: 'Inspiration', icon: BookOpen }
+    appreciation: { color: getSeasonalColors().appreciation, label: 'Inspiration', icon: BookOpen },
 	'teacher-reply': { color: '#3B82F6', label: 'Teacher Response', icon: MessageCircle }
   };
 
