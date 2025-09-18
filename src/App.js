@@ -396,12 +396,16 @@ const TeacherWishingTree = () => {
               >
                 <div 
                   className="relative w-8 h-8 md:w-12 md:h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-white transform rotate-45"
-                  style={{ backgroundColor: category.color }}
+                  style={{ 
+			backgroundColor: category.color,
+			borderRadius: '50% 0 50% 0',
+    			clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' 
+		}}
                 >
                   <div className="transform -rotate-45">
                     {React.createElement(category.icon, { size: index % 2 === 0 ? 16 : 20 })}
                   </div>
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0.5 h-2 bg-green-800"></div>
+                  {/*<div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0.5 h-2 bg-green-800"></div>*/}
                   
                   {/* Heart counter */}
                   {wish.hearts > 0 && (
