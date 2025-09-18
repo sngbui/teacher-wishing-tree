@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#22c55e" />
+    <meta name="description" content="Share your gratitude and encouragement for the amazing teachers who shape our future on the Teacher Appreciation Wishing Tree." />
+    <meta property="og:title" content="Teacher Appreciation Wishing Tree" />
+    <meta property="og:description" content="A beautiful interactive space to share gratitude for teachers. Click leaves to read wishes from the community!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="%PUBLIC_URL%/tree-preview.png" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <title>Teacher Appreciation Wishing Tree | By TeachersTogether</title>
+    
+    <style>
+      /* Custom animations */
+      @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+      }
+      
+      .animate-marquee {
+        animation: marquee 20s linear infinite;
+      }
+      
+      /* Loading screen */
+      .loading-spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #22c55e;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Seasonal gradients */
+      .spring-gradient {
+        background: linear-gradient(135deg, #a8e6cf, #dcedc1);
+      }
+      
+      .summer-gradient {
+        background: linear-gradient(135deg, #ffd89b, #19547b);
+      }
+      
+      .autumn-gradient {
+        background: linear-gradient(135deg, #ff9a9e, #fecfef);
+      }
+      
+      .winter-gradient {
+        background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: Arial;">
+        <h1>JavaScript Required</h1>
+        <p>You need to enable JavaScript to run the Teacher Appreciation Wishing Tree.</p>
+      </div>
+    </noscript>
+    <div id="root"></div>
+  </body>
+</html>
