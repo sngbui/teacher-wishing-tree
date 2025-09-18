@@ -833,7 +833,7 @@ const TeacherWishingTree = () => {
             </div>
           </div>
         </div>
-      )}}
+      )}
     </div>
   );
 };
