@@ -439,10 +439,10 @@ const [teacherReplyData, setTeacherReplyData] = useState({
         </div>
 
         {/* Tree Crown */}
-        <div className="relative w-full h-96 md:h-[500px]">
-          <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 w-80 md:w-96 h-80 md:h-96 bg-gradient-to-b from-green-400 to-green-600 rounded-full opacity-90 shadow-2xl"></div>
-          <div className="absolute bottom-28 left-1/2 transform -translate-x-1/2 translate-x-8 w-64 md:w-80 h-64 md:h-80 bg-gradient-to-b from-green-300 to-green-500 rounded-full opacity-80"></div>
-          <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 -translate-x-8 w-64 md:w-72 h-64 md:h-72 bg-gradient-to-b from-green-500 to-green-700 rounded-full opacity-85"></div>
+       <div className="relative w-full h-96 md:h-[500px]">
+  <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 w-96 md:w-[450px] h-80 md:h-96 bg-gradient-to-b from-green-400 to-green-600 rounded-full opacity-90 shadow-2xl"></div>
+  <div className="absolute bottom-28 left-1/2 transform -translate-x-1/2 translate-x-12 w-80 md:w-96 h-64 md:h-80 bg-gradient-to-b from-green-300 to-green-500 rounded-full opacity-80"></div>
+  <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 -translate-x-12 w-72 md:w-80 h-64 md:h-72 bg-gradient-to-b from-green-500 to-green-700 rounded-full opacity-85"></div>
 
           {/* Wishes as Leaves */}
           {filteredWishes.map((wish, index) => {
@@ -462,10 +462,9 @@ const [teacherReplyData, setTeacherReplyData] = useState({
                 onClick={() => setSelectedWish(wish)}
               >
                 <div 
-                  className="relative w-8 h-8 md:w-12 md:h-12 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-white transform rotate-45"
-                  style={{ 
-			backgroundColor: category.color,
-			borderRadius: '50% 0 50% 0'
+                  className="relative w-8 h-8 md:w-12 md:h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-white transform rotate-45"
+				style={{
+					backgroundColor: category.color
     			
 		}}
                 >
@@ -475,11 +474,11 @@ const [teacherReplyData, setTeacherReplyData] = useState({
                   {/*<div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0.5 h-2 bg-green-800"></div>*/}
                   
                   {/* Heart counter */}
-                  {wish.hearts > 0 && (
-                    <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center transform -rotate-45">
-                      {wish.hearts}
-                    </div>
-                  )}
+                  //{wish.hearts > 0 && (
+                    //<div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center transform -rotate-45">
+                      //{wish.hearts}
+                    //</div>
+                  //)}
                   
                   {/* Wish of the day indicator */}
                   {wish.isWishOfTheDay && (
@@ -606,32 +605,34 @@ const [teacherReplyData, setTeacherReplyData] = useState({
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Choose a category:
                   </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {Object.entries(categories).map(([key, category]) => {
-                      const Icon = category.icon;
-                      return (
-                        <button
-                          key={key}
-                          onClick={() => setFormData({ ...formData, category: key })}
-                          className={`p-3 rounded-lg border-2 transition-all ${
-                            formData.category === key
-                              ? 'border-green-500 bg-green-50'
-                              : 'border-gray-200 hover:border-green-300'
-                          }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <div
-                              className="w-6 h-6 rounded-full flex items-center justify-center"
-                              style={{ backgroundColor: category.color }}
-                            >
-                              <Icon size={14} className="text-white" />
-                            </div>
-                            <span className="text-sm font-medium">{category.label}</span>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
+					  <div className="grid grid-cols-2 gap-2">
+  {Object.entries(categories)
+    .filter(([key]) => key !== 'teacher-reply') // Hide teacher-reply from student form
+    .map(([key, category]) => {
+      const Icon = category.icon;
+      return (
+        <button
+          key={key}
+          onClick={() => setFormData({ ...formData, category: key })}
+          className={`p-3 rounded-lg border-2 transition-all ${
+            formData.category === key
+              ? 'border-green-500 bg-green-50'
+              : 'border-gray-200 hover:border-green-300'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <div
+              className="w-6 h-6 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: category.color }}
+            >
+              <Icon size={14} className="text-white" />
+            </div>
+            <span className="text-sm font-medium">{category.label}</span>
+          </div>
+        </button>
+      );
+    })}
+</div>
                 </div>
 
                 {/* Message Input */}
