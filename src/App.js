@@ -473,12 +473,12 @@ const [teacherReplyData, setTeacherReplyData] = useState({
                   </div>
                   {/*<div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0.5 h-2 bg-green-800"></div>*/}
                   
-                  {/* Heart counter */}
-                  //{wish.hearts > 0 && (
-                    //<div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center transform -rotate-45">
-                      //{wish.hearts}
-                    //</div>
-                  //)}
+                  {/* Heart counter }
+                  {wish.hearts > 0 && (
+                    <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center transform -rotate-45">
+                      {wish.hearts}
+                    </div>
+                  )*/}
                   
                   {/* Wish of the day indicator */}
                   {wish.isWishOfTheDay && (
